@@ -1,0 +1,18 @@
+.pull-right {
+    float: right;
+}
+
+.sidenav-container {
+    height: 100%;
+}
+
+.sidenav {
+    width: 200px;
+    box-shadow: 3px 0 6px rgba(0, 0, 0, .24);
+}
+
+.toolbar {
+	background: black;
+	font-weight: 500;
+    /* border-bottom: 2px solid white; */
+}
