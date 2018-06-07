@@ -1,14 +1,32 @@
 <div class="movie-list-container">
-    <div fxLayout="row wrap" fxLayoutAlign="start center">
-        <div *ngFor="let value of movieList; let idx = index" class="" fxFlex="33" fxFlex.sm="33">
-            <mat-card class="example-card">
-                <img mat-card-image src="./../../assets/Slices/{{value['poster-image']}}" alt="Photo of a Shiba Inu" class="image-cont">
+    <div fxLayout="row wrap" fxLayoutAlign="start center" infiniteScroll [infiniteScrollDistance]="2" (scrolled)="onScroll()">
+        <div *ngFor="let item of movieList; let idx = index" class="card-cont" fxFlex.xs="33" fxFlex.sm="33" fxFlex="auto">
+            <mat-card class="movie-card">
+                <img mat-card-image src="./../../assets/Slices/placeholder_for_missing_posters.png" alt="Photo of a movie" [hidden]="item['poster-image'] != 'posterthatismissing.jpg'"
+                    class="image-cont">
+                <img mat-card-image src="./../../assets/Slices/{{item['poster-image']}}" alt="Photo of a movie" [hidden]="item['poster-image'] == 'posterthatismissing.jpg'"
+                    class=" image-cont ">
                 <mat-card-content>
                     <p>
-                        text
+                        {{item.name}}
                     </p>
                 </mat-card-content>
             </mat-card>
         </div>
     </div>
 </div>
+
+<ng-template #searchModal>
+    <div class="modal-header" *ngIf="!isEdit">
+        <form>
+            <input type="text" name="search" placeholder="Search.." [hidden]="searchInput" class="searchBox-cont" (keyup)="searchMovies($event);">
+        </form>
+        <!-- <h4 class="modal-title modal-headings pull-left">Add Organisation</h4> -->
+        <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <span>No results found</span>
+    </div>
+</ng-template>

@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MovieListService } from './../services/movie-list.service';
-
+import { error } from 'util';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { GlobalService } from './../services/global.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
@@ -8,19 +12,64 @@ import { MovieListService } from './../services/movie-list.service';
 })
 export class DashboardComponent implements OnInit {
     public movieList: any;
-    public pageNumber: number;
-    constructor(private movieListService: MovieListService, ) { }
+    public pageNumber = 1;
+    public totalCount: number;
+    public count = 0;
+    public modalRef: BsModalRef;
+    public active = false;
+    searchForm: FormGroup;
+    @ViewChild('searchModal') template: any;
+    constructor(private movieListService: MovieListService,
+        private modalService: BsModalService,
+        private globalService: GlobalService,
+        private fb: FormBuilder) {
+        this.movieList = [];
+        this.searchForm = this.fb.group({
+            'searchKey': ['', Validators.compose([Validators.required])]
+        });
+    }
 
     ngOnInit() {
-        this.movieListService.getMovies(1).subscribe(
-            movieList => {
-                console.log(movieList.page['content-items'].content)
-                console.log(movieList.page['content-items'].content[0]['poster-image']);
+        this.listMovies(this.pageNumber);
+        this.globalService.searchBarActive$.subscribe(
+            status => {
+                this.active = status;
+                this.openModal(this.template);
+            });
+    }
+    openModal(template: TemplateRef<any>) {
+        this.modalRef = this.modalService.show(template);
+    }
+    close() {
+        this.modalRef.hide();
+    }
+    listMovies(index) {
+        this.movieListService.getMovies(index).subscribe(
+            value => {
+                this.totalCount = value.page['total-content-items'];
+                this.count += parseInt(value.page['page-size-returned']);
+                console.log(value.page['content-items'].content)
+                console.log(value.page['content-items'].content[0]['poster-image']);
 
-                this.movieList = movieList.page['content-items'].content;
-            }, movieListError => {
-                console.log(movieListError)
+                this.movieList = this.movieList.concat(value.page['content-items'].content);
+                console.log(this.movieList);
+            }, error => {
+                console.log(error);
             }
         );
+    }
+
+    onScroll() {
+        this.pageNumber += 1;
+        if (this.count < this.totalCount) {
+            this.listMovies(this.pageNumber);
+        }
+    }
+
+    searchMovies(event) {
+        console.log(event.target.value.toLowerCase())
+        this.movieList.filter(result => {
+            console.log(result);
+        });
     }
 }

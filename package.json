@@ -1,5 +1,5 @@
 {
-  "name": "football-application",
+  "name": "movie-listing",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -23,9 +23,14 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
-    "bootstrap": "^4.1.1",
+    "@ng-bootstrap/ng-bootstrap": "^2.0.0-alpha.0",
+    "@ng-bootstrap/schematics": "^2.0.0-alpha.1",
+    "@types/jquery": "^3.3.2",
+    "bootstrap": "^4.0.0",
     "core-js": "^2.5.4",
     "jquery": "^3.3.1",
+    "ngx-bootstrap": "^3.0.0",
+    "ngx-infinite-scroll": "^6.0.0",
     "popper.js": "^1.14.3",
     "rxjs": "^6.2.0",
     "rxjs-compat": "^6.2.0",

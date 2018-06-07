@@ -1,8 +1,22 @@
-<mat-toolbar class="toolbar" color="primary">
-  <!-- <button type="button" aria-label="Back">
-    <mat-icon aria-label="Back">back</mat-icon>
-  </button> -->
-  <span>Romantic Comedy</span>
+<mat-toolbar color="primary" class="toolbar fixed-top">
+  <mat-toolbar-row>
+    <mat-nav-list class="navHead">
+      <mat-list-item class="test">
+        <img mat-card-image src="./../assets/Slices/Back.png" alt="Photo of a movie" class="nav-bar-icons">
+      </mat-list-item>
+      <mat-list-item class="test">
+        <span>Romantic Comedy</span>
+      </mat-list-item>
+      <mat-list-item class="test1">
+        <img mat-card-image src="./../assets/Slices/search.png" alt="Photo of a movie" class="nav-bar-icons" (click)="onSearchClick()">
+      </mat-list-item>
+      <!-- <mat-nav-list>
+        <form>
+          <input type="text" name="search" placeholder="Search.." [hidden]="searchInput" class="searchBox-cont">
+        </form>
+      </mat-nav-list> -->
+    </mat-nav-list>
+  </mat-toolbar-row>
 </mat-toolbar>
 <div class="container">
   <router-outlet></router-outlet>
