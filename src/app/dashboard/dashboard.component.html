@@ -2,11 +2,11 @@
     <div fxLayout="row wrap" fxLayoutAlign="start center" infiniteScroll [infiniteScrollDistance]="2" (scrolled)="onScroll()">
         <div *ngFor="let item of movieList; let idx = index" class="card-cont" fxFlex.xs="33" fxFlex.sm="33" fxFlex="auto">
             <mat-card class="movie-card">
-                <img mat-card-image src="./../../assets/Slices/placeholder_for_missing_posters.png" alt="Photo of a movie" [hidden]="item['poster-image'] != 'posterthatismissing.jpg'"
+                <img mat-card-image src="./../../assets/Slices/placeholder_for_missing_posters.png" alt="Photo of a movie" *ngIf="item['poster-image'] == 'posterthatismissing.jpg'"
                     class="image-cont">
-                <img mat-card-image src="./../../assets/Slices/{{item['poster-image']}}" alt="Photo of a movie" [hidden]="item['poster-image'] == 'posterthatismissing.jpg'"
+                <img mat-card-image src="./../../assets/Slices/{{item['poster-image']}}" alt="Photo of a movie" *ngIf="item['poster-image'] != 'posterthatismissing.jpg'"
                     class=" image-cont ">
-                <mat-card-content>
+                <mat-card-content class="title-cont">
                     <p>
                         {{item.name}}
                     </p>
@@ -19,7 +19,8 @@
 <ng-template #searchModal>
     <div class="modal-header" *ngIf="!isEdit">
         <form>
-            <input type="text" name="search" placeholder="Search.." [hidden]="searchInput" class="searchBox-cont" (keyup)="searchMovies($event);">
+            <input type="text" name="search" placeholder="Search.." [hidden]="searchInput" class="searchBox-cont" (keyup)="searchMovies($event);"
+                autofocus>
         </form>
         <!-- <h4 class="modal-title modal-headings pull-left">Add Organisation</h4> -->
         <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
@@ -27,6 +28,23 @@
         </button>
     </div>
     <div class="modal-body">
-        <span>No results found</span>
+        <!-- <span>No results found</span> -->
+        <div class="movie-list-container">
+            <div fxLayout="row wrap" fxLayoutAlign="start center" infiniteScroll [infiniteScrollDistance]="2" (scrolled)="onScroll()">
+                <div *ngFor="let item of searchResults; let idx = index" class="card-cont" fxFlex.xs="33" fxFlex.sm="33" fxFlex="auto">
+                    <mat-card class="movie-card">
+                        <img mat-card-image src="./../../assets/Slices/placeholder_for_missing_posters.png" alt="Photo of a movie" *ngIf="item['poster-image'] == 'posterthatismissing.jpg'"
+                            class="image-cont">
+                        <img mat-card-image src="./../../assets/Slices/{{item['poster-image']}}" alt="Photo of a movie" *ngIf="item['poster-image'] != 'posterthatismissing.jpg'"
+                            class=" image-cont ">
+                        <mat-card-content>
+                            <p>
+                                {{item.name}}
+                            </p>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
     </div>
 </ng-template>

@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
     public modalRef: BsModalRef;
     public active = false;
     searchForm: FormGroup;
+    public searchResults = [];
     @ViewChild('searchModal') template: any;
     constructor(private movieListService: MovieListService,
         private modalService: BsModalService,
@@ -38,9 +39,17 @@ export class DashboardComponent implements OnInit {
             });
     }
     openModal(template: TemplateRef<any>) {
+        this.movieList = [];
+        this.listMovies(1);
+        this.listMovies(2);
+        this.listMovies(3);
         this.modalRef = this.modalService.show(template);
     }
     close() {
+        this.movieList = [];
+        this.pageNumber = 1;
+        this.count = 0;
+        this.listMovies(this.pageNumber);
         this.modalRef.hide();
     }
     listMovies(index) {
@@ -48,11 +57,7 @@ export class DashboardComponent implements OnInit {
             value => {
                 this.totalCount = value.page['total-content-items'];
                 this.count += parseInt(value.page['page-size-returned']);
-                console.log(value.page['content-items'].content)
-                console.log(value.page['content-items'].content[0]['poster-image']);
-
                 this.movieList = this.movieList.concat(value.page['content-items'].content);
-                console.log(this.movieList);
             }, error => {
                 console.log(error);
             }
@@ -67,9 +72,13 @@ export class DashboardComponent implements OnInit {
     }
 
     searchMovies(event) {
-        console.log(event.target.value.toLowerCase())
-        this.movieList.filter(result => {
-            console.log(result);
+        this.searchResults = [];
+        this.movieList.forEach(result => {
+            console.log(result.name.indexOf(event.target.value.toLowerCase()))
+            if (result.name.indexOf(event.target.value.toLowerCase()) !== -1 || !event.target.value.toLowerCase()) {
+                this.searchResults.push(result);
+            }
         });
+        console.log(this.searchResults)
     }
 }
