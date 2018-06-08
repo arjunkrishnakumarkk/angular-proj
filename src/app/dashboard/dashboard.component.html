@@ -7,7 +7,7 @@
                 <img mat-card-image src="./../../assets/Slices/{{item['poster-image']}}" alt="Photo of a movie" *ngIf="item['poster-image'] != 'posterthatismissing.jpg'"
                     class=" image-cont ">
                 <mat-card-content class="title-cont">
-                    <p>
+                    <p class="title-cont-p">
                         {{item.name}}
                     </p>
                 </mat-card-content>
@@ -17,18 +17,17 @@
 </div>
 
 <ng-template #searchModal>
-    <div class="modal-header" *ngIf="!isEdit">
+    <div class="modal-header search-header" *ngIf="!isEdit">
         <form>
             <input type="text" name="search" placeholder="Search.." [hidden]="searchInput" class="searchBox-cont" (keyup)="searchMovies($event);"
                 autofocus>
         </form>
         <!-- <h4 class="modal-title modal-headings pull-left">Add Organisation</h4> -->
         <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
-            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true" class="close-button">&times;</span>
         </button>
     </div>
-    <div class="modal-body">
-        <!-- <span>No results found</span> -->
+    <div class="modal-body search-body" *ngIf="searchResults.length > 0 ">
         <div class="movie-list-container">
             <div fxLayout="row wrap" fxLayoutAlign="start center" infiniteScroll [infiniteScrollDistance]="2" (scrolled)="onScroll()">
                 <div *ngFor="let item of searchResults; let idx = index" class="card-cont" fxFlex.xs="33" fxFlex.sm="33" fxFlex="auto">
@@ -37,8 +36,8 @@
                             class="image-cont">
                         <img mat-card-image src="./../../assets/Slices/{{item['poster-image']}}" alt="Photo of a movie" *ngIf="item['poster-image'] != 'posterthatismissing.jpg'"
                             class=" image-cont ">
-                        <mat-card-content>
-                            <p>
+                        <mat-card-content class="title-cont">
+                            <p class="title-cont-p">
                                 {{item.name}}
                             </p>
                         </mat-card-content>

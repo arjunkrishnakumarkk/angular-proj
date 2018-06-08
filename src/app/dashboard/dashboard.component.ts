@@ -40,6 +40,7 @@ export class DashboardComponent implements OnInit {
     }
     openModal(template: TemplateRef<any>) {
         this.movieList = [];
+        this.searchResults = [];
         this.listMovies(1);
         this.listMovies(2);
         this.listMovies(3);
@@ -73,12 +74,9 @@ export class DashboardComponent implements OnInit {
 
     searchMovies(event) {
         this.searchResults = [];
-        this.movieList.forEach(result => {
-            console.log(result.name.indexOf(event.target.value.toLowerCase()))
-            if (result.name.indexOf(event.target.value.toLowerCase()) !== -1 || !event.target.value.toLowerCase()) {
-                this.searchResults.push(result);
-            }
+        const temp = this.movieList.filter(function (d) {
+            return d.name.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1 || !event.target.value.toLowerCase();
         });
-        console.log(this.searchResults)
+        this.searchResults = temp;
     }
 }

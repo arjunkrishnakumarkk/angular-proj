@@ -1,6 +1,7 @@
 .toolbar {
 	background: black;
-	font-weight: 500;
+    font-weight: 500;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.5), 0 17px 50px 0 rgba(0,0,0,0.19)
     /* border-bottom: 2px solid white; */
 }
 .nav-bar-icons{
