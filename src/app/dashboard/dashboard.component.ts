@@ -74,9 +74,11 @@ export class DashboardComponent implements OnInit {
 
     searchMovies(event) {
         this.searchResults = [];
-        const temp = this.movieList.filter(function (d) {
-            return d.name.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1 || !event.target.value.toLowerCase();
-        });
-        this.searchResults = temp;
+        if(event.target.value.toLowerCase().length > 0){
+            const temp = this.movieList.filter(function (d) {
+                return d.name.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1 || !event.target.value.toLowerCase();
+            });
+            this.searchResults = temp;
+        }
     }
 }
