@@ -1,9 +1,12 @@
 .movie-list-container {
 	padding-top: 56px;
 }
+.movie-list-container-modal {
+	padding-top: 56px;
+}
 .image-cont{
 	width: 100%;
-	max-height: 75vh;
+	max-height: 50vh;
 	margin: 0;
 	min-height: 15vh;
 	height: auto;
@@ -34,7 +37,9 @@
 
 .search-header {
 	background-color: #000;
-	color:#fff
+	color:#fff;
+	border-bottom:0;
+	border-radius:0;
 }
 .close-button{
 	color: white;
@@ -42,7 +47,8 @@
 }
 
 .searchBox-cont {
-    border: 1px solid #e6ecf5;
+	background-color: #000;
+    border: solid 1px #555;
     border-radius: 2px;
     box-shadow: none;
     height: 35px;
@@ -64,4 +70,7 @@
 	width: 100%; 
 	overflow: hidden;
 	text-overflow: ellipsis; 
+}
+.form-class{
+	width:100%;
 }
